@@ -2,13 +2,12 @@ import os # interacts with system files
 
 path=input("Enter the  Folder Path:") #Taking path as an input
 
-print("processing....")#The get information that the process is started
 
 if os.path.isdir(path): #Checks the folder is present or not
     files = os.listdir(path) # returns the list of files
     
     if files:
-        print("Files exist in the folder")
+        print("Processing....")
 
         no_of_log_files=0
         no_of_non_log_files=0
@@ -18,13 +17,15 @@ if os.path.isdir(path): #Checks the folder is present or not
                 no_of_log_files += 1
             else:
                 no_of_non_log_files+=1
-        if no_of_log_files>0 and no_of_non_log_files == 0:# checks for only log files
+        if no_of_log_files > 0: #It checks each and every file
             print(f"Log files found:{no_of_log_files}")
-        else:
-            print("It has non log files in it please provide files which has non log files.")   
-            
+            print(f"Invalid file found:{no_of_non_log_files}")
+        elif no_of_log_files == 0:#It checks for if it does'nt contain log files
+            print(f"Log files found:{no_of_log_files}")
+            print(f"Invalid log files:{no_of_non_log_files}")
+            print("The provided folder doesn't have log files in it.")   
     else:
-        print("Please provide the path which has files in it.")
+        print("The provided folder has no files in it.")
 else:
-    print("Inavalid Path, Please provide the correct path.")
+    print("Inavalid Path, Please provide the valid path.")
 
