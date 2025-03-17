@@ -11,6 +11,7 @@ INVALID_PATH = "Invalid Path, Please provide a valid path."
 NO_FILES_MESSAGE = "The provided folder has no files in it."
 NO_LOG_FILES_MESSAGE = "No log files present in the folder."
 PROCESSING_MESSAGE = "Processing...."
+FILE_EXTENTION=".log"
 
 # Add project root to sys.path for module imports
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -27,7 +28,7 @@ if os.path.isdir(folder_path):
         print(f"Log files found: {num_log_files}")
         print(f"Invalid files found: {num_non_log_files}")
         if num_log_files > 0:
-            log_files = [file for file in files if file.endswith(".log")]
+            log_files = [file for file in files if file.endswith(FILE_EXTENTION)]
             merge_sorted_logs(folder_path, log_files)  # Merge sorted logs
         else:
             print(NO_LOG_FILES_MESSAGE)

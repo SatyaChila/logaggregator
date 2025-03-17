@@ -10,7 +10,7 @@ OUTPUT_FOLDER = r"C:\satyanarayana_chila\Log\Output"
 def merge_sorted_logs(folder_path, log_files):
     # Ensure the output folder exists
     os.makedirs(OUTPUT_FOLDER, exist_ok=True)
-    current_datetime = datetime.now().strftime("%d-%m-%Y_%H:%M:%S")
+    current_datetime = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
     # Define the output file path in the output folder
     output_file = os.path.join(OUTPUT_FOLDER, f"logAggegator_Merged_file_{current_datetime}.log")
     all_lines = []
@@ -20,7 +20,7 @@ def merge_sorted_logs(folder_path, log_files):
         all_lines.extend(read_log_file(file_path)) 
     # Sort lines based on timestamp
     sorted_lines = sorted(all_lines, key=extract_timestamp)
-    # Append sorted logs to the output file
-    with open(output_file, "a", errors="ignore") as out_file:
+    # a appends sorted logs to the output file
+    with open(output_file, "a", errors="ignore") as out_file: # a is method, used to append
         out_file.writelines(sorted_lines)
     print(f"Logs merged and saved to: {output_file}")
