@@ -17,4 +17,5 @@ def merge_sorted_logs(folder_path, log_files):
     # a appends sorted logs to the output file
     with open(temp_file, "a", errors="ignore") as out_file:
         out_file.writelines(sorted_lines)
-    return temp_file  # Return the file name, not the full path
+    # Return the file name, not the full path
+    return temp_file  

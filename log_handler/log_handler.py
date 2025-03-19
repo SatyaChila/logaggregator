@@ -7,4 +7,5 @@ def extract_timestamp(line):
         timestamp_str = line.split()[0].strip("[]")
         return datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
     except (IndexError, ValueError):
-        return datetime.min  # Default to the earliest date
+        # Default to the earliest date
+        return datetime.min  

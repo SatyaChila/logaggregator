@@ -5,10 +5,6 @@ from log_handler.log_merger import merge_sorted_logs
 from file_handler.file_handler import get_files_in_folder
  
 # Constants
-INVALID_PATH = "Invalid Path, Please provide a valid path."
-NO_FILES_MESSAGE = "The provided folder has no files in it."
-NO_LOG_FILES_MESSAGE = "No log files present in the folder."
-PROCESSING_MESSAGE = "Processing..."
 FILE_EXTENSION = ".log"
  
 # Add project root to sys.path for module imports
@@ -18,9 +14,10 @@ sys.path.append(project_root)
 folder_path = input("Enter the Folder Path: ").strip()
 # Check if the folder exists
 if os.path.isdir(folder_path):
-    files = get_files_in_folder(folder_path)  # Get list of files
+    # Get list of files
+    files = get_files_in_folder(folder_path)  
     if files:
-        print(PROCESSING_MESSAGE)
+        print("Processing...")
         # Count log and non-log files
         num_log_files, num_non_log_files = count_log_files(files)
         print(f"Log files found: {num_log_files}")
@@ -34,11 +31,12 @@ if os.path.isdir(folder_path):
             os.makedirs(output_folder, exist_ok=True)
             # Generate output file name
             output_file = os.path.join(output_folder, merged_logs)
-            os.rename(merged_logs, output_file)  # Move the file
+            # Move the file
+            os.rename(merged_logs, output_file)  
             print(f"Logs merged and saved to: {output_file}")
         else:
-            print(NO_LOG_FILES_MESSAGE)
+            print("No log files present in the folder.")
     else:
-        print(NO_FILES_MESSAGE)
+        print("The provided folder has no files in it.")
 else:
-    print(INVALID_PATH)
+    print("Invalid Path, Please provide a valid path.")         

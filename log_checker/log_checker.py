@@ -4,7 +4,10 @@ def count_log_files(files):
     no_of_non_log_files = 0
     for file in files:
         if file.endswith(".log"):  
-            no_of_log_files += 1  # Increment count for .log files
+            # Increment count for .log files
+            no_of_log_files += 1  
         else:
-            no_of_non_log_files += 1  # Increment count for other files 
-    return (no_of_log_files, no_of_non_log_files)  # Ensure it returns a tuple
+            # Increment count for other files
+            no_of_non_log_files += 1   
+    # Ensure it returns a tuple
+    return (no_of_log_files, no_of_non_log_files)  
