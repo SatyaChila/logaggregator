@@ -26,7 +26,7 @@ if os.path.isdir(folder_path):
             log_files = [file for file in files if file.endswith(FILE_EXTENSION)]
             # Perform merging (but don't save yet)
             merged_logs = merge_sorted_logs(folder_path, log_files)
-            # Ask for output folder **after** merging
+            # Ask for output folder *after* merging
             output_folder = input("Enter the Output Folder Path: ").strip()
             os.makedirs(output_folder, exist_ok=True)
             # Generate output file name
