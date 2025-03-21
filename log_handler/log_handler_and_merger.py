@@ -1,8 +1,27 @@
 import os
+import re
 from datetime import datetime
 from .log_reader import read_log_file
-from .log_handler import extract_timestamp
- 
+
+def extract_timestamp(log_line):
+    # Generalized regex to capture various timestamp formats
+    timestamp_pattern = r"(\d{2,4}[/.-]\d{2}[/.-]\d{2,4} \d{2}:\d{2}:\d{2}[.:]\d+)"
+    match = re.search(timestamp_pattern, log_line)
+    if match:
+        timestamp_str = match.group(1)
+        # Possible timestamp formats
+        formats = [
+            "%m/%d/%Y %H:%M:%S.%f",
+            "%Y/%m/%d %H:%M:%S:%f",
+            "%Y-%m-%d %H:%M:%S.%f"
+        ]
+        for fmt in formats:
+            try:
+                return datetime.strptime(timestamp_str, fmt)
+            except ValueError:
+                continue
+    return None
+
 # Merge log files, sort them by timestamp, and return the merged file path
 def merge_sorted_logs(folder_path, log_files):
     current_datetime = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")

@@ -1,8 +1,8 @@
 import os
 from datetime import datetime
-from database.db_connection import get_db  # Import the MongoDB connection function
+from database.db_connection import get_db  
 from log_checker.log_checker import count_log_files
-from log_handler.log_merger import merge_sorted_logs
+from log_handler.log_handler_and_merger import merge_sorted_logs
 from file_handler.file_handler import get_files_in_folder
  
 # Constants
@@ -68,3 +68,4 @@ else:
 # Insert audit entry into MongoDB
 audit_collection.insert_one(audit_entry)
 print("Audit entry saved to MongoDB.")
+
