@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from database.db_connection import get_db  
 from log_checker.log_checker import count_log_files
-from log_handler.log_handler_and_merger import merge_sorted_logs
+from log_handler.log_operations import merge_sorted_logs
 from file_handler.file_handler import get_files_in_folder
  
 # Constants
@@ -10,11 +10,12 @@ FILE_EXTENSION = ".log"
  
 # Get MongoDB database and audit collection
 db = get_db()
-audit_collection = db["audit"]
+AUDIT_COLLECTIONS = db["audit"]
  
 # Take folder path as input
 folder_path = input("Enter the Folder Path: ").strip()
-operation_time = datetime.now()
+current_time = datetime.now()
+operation_time =current_time.isoformat()
  
 # Prepare MongoDB audit log entry
 audit_entry = {
@@ -65,7 +66,11 @@ else:
     print("Invalid Path, Please provide a valid path.")
     audit_entry["error_message"] = "Invalid folder path."
  
-# Insert audit entry into MongoDB
-audit_collection.insert_one(audit_entry)
-print("Audit entry saved to MongoDB.")
-
+#Check if the audit entry already exists in the collection
+existing_entry = AUDIT_COLLECTIONS.find_one({"folder_path": folder_path, "operation_time": operation_time})
+if not existing_entry:
+    # Insert audit entry into MongoDB
+    AUDIT_COLLECTIONS.insert_one(audit_entry)
+    print("Audit entry saved to MongoDB.")
+else:
+    print("Duplicate entry. Audit entry not saved.")
